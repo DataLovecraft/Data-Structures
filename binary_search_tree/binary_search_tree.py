@@ -1,7 +1,7 @@
 """
-Binary search trees are a data structure that enforce an ordering over 
-the data they store. That ordering in turn makes it a lot more efficient 
-at searching for a particular piece of data in the tree. 
+Binary search trees are a data structure that enforce an ordering over
+the data they store. That ordering in turn makes it a lot more efficient
+at searching for a particular piece of data in the tree.
 
 This part of the project comprises two days:
 1. Implement the methods `insert`, `contains`, `get_max`, and `for_each`
@@ -17,20 +17,67 @@ class BSTNode:
 
     # Insert the given value into the tree
     def insert(self, value):
-        pass
+        # compare the input value with the value of the Node.
+        # if the value < Node's value
+        if value < self.value:
+
+            # we need to go left.
+            # if there's no node to compare the input value to,
+            # if we see there is no left childr,
+            if self.left is None:
+           # then we can wrap the value in a BSTNode and park it.
+                self.left = BSTNode(value)
+            # otherwise there is a child
+            # call the left child's 'insert' method
+            else:
+                # here we are doing the exact same thing on the node in that direction.
+                self.left.insert(value)
+        # oterwise, value >= Node's value
+        else:
+            # we need to go right.
+            # if we see there is no right child, then we can wrap the
+            if self.right is None:
+            # value in a BSTNode and park it.
+                self.right = BSTNode(value)
+            # otherwise there is a child
+            else:
+            # call the right child's 'insert' method
+                self.right.insert(value)
+
+
 
     # Return True if the tree contains the value
     # False if it does not
     def contains(self, target):
-        pass
+        if target < self.value:
+            if self.left:
+                return self.left.contains(target)
+        elif target > self.value:
+            if self.right:
+                return self.right.contains(target)
+        return self.value == target
+
 
     # Return the maximum value found in the tree
     def get_max(self):
-        pass
+        maxValue = self.value
+        lMax = self.left.get_max()
+        rMax = self.right.get_max()
+        if lMax < maxValue:
+            maxValue = lMax
+        elif rMax > maxValue:
+            maxValue = rMax
+        return maxValue
 
     # Call the function `fn` on the value of each node
     def for_each(self, fn):
-        pass
+        # type: (object) -> object
+        temp = BSTNode()
+        for each in temp.value:
+            if each == temp.left:
+                temp.for_each(fn)
+            elif each == temp.right:
+                temp.for_each(fn)
 
     # Part 2 -----------------------
 
